@@ -1,0 +1,60 @@
+timestamp,event,details
+2025-06-20 10:22:43,Hazard Detected,Human detected in hazard zone!
+2025-06-20 10:22:43,Machine Restarted,No hazard detected.
+2025-06-20 10:22:45,Hazard Detected,Human detected in hazard zone!
+2025-06-20 10:22:45,Machine Restarted,No hazard detected.
+2025-06-20 10:22:45,Hazard Detected,Human detected in hazard zone!
+2025-06-20 10:23:14,Machine Restarted,No hazard detected.
+2025-06-20 10:23:26,Hazard Detected,Human detected in hazard zone!
+2025-06-20 10:23:34,Machine Restarted,No hazard detected.
+2025-06-21 15:35:22,Hazard Detected,Human detected in hazard zone!; Human detected in hazard zone!
+2025-06-21 15:35:27,Machine Restarted,No hazard detected.
+2025-06-21 15:36:59,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:38:52,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:38:55,Machine Restarted,No hazard detected.
+2025-06-21 15:38:56,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:38:56,Machine Restarted,No hazard detected.
+2025-06-21 15:38:56,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:38:56,Machine Restarted,No hazard detected.
+2025-06-21 15:38:56,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:38:57,Machine Restarted,No hazard detected.
+2025-06-21 15:38:58,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:38:58,Machine Restarted,No hazard detected.
+2025-06-21 15:38:58,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:40:54,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:42:32,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:43:22,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:48:13,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:50:57,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:57:47,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:57:47,Machine Restarted,No hazard detected.
+2025-06-21 15:57:47,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:57:47,Machine Restarted,No hazard detected.
+2025-06-21 15:57:47,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:57:47,Machine Restarted,No hazard detected.
+2025-06-21 15:57:48,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:57:48,Machine Restarted,No hazard detected.
+2025-06-21 15:57:52,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:57:52,Machine Restarted,No hazard detected.
+2025-06-21 15:57:52,Hazard Detected,Human detected in hazard zone!; Human detected in hazard zone!
+2025-06-21 15:57:52,Machine Restarted,No hazard detected.
+2025-06-21 15:57:55,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:57:55,Machine Restarted,No hazard detected.
+2025-06-21 15:57:55,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:57:55,Machine Restarted,No hazard detected.
+2025-06-21 15:57:55,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:57:56,Machine Restarted,No hazard detected.
+2025-06-21 15:58:00,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:58:00,Machine Restarted,No hazard detected.
+2025-06-21 15:58:00,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:58:01,Machine Restarted,No hazard detected.
+2025-06-21 15:58:01,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:58:03,Machine Restarted,No hazard detected.
+2025-06-21 15:58:03,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:58:03,Machine Restarted,No hazard detected.
+2025-06-21 15:58:04,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:58:05,Machine Restarted,No hazard detected.
+2025-06-21 15:58:05,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:58:05,Machine Restarted,No hazard detected.
+2025-06-21 15:58:05,Hazard Detected,Human detected in hazard zone!
+2025-06-21 15:58:07,Machine Restarted,No hazard detected.
