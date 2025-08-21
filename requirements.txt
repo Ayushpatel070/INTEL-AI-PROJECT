@@ -3,3 +3,7 @@ opencv-python
 streamlit
 pandas
 numpy 
+
+# PS C:\Users\Ayush Patel\OneDrive\Desktop\INTEL-AI-PROJECT> streamlit run dashboard/streamlit_app.py
+
+# .\.venv\Scripts\python.exe -m streamlit run dashboard/streamlit_app.py

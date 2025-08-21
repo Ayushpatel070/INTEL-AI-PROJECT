@@ -1,171 +1,123 @@
-# AI-Powered Real-Time Safety System for Modular Manufacturing
+## 🤖🛡️ AI-Powered Real-Time Safety System
 
-## Overview
-This system uses computer vision (YOLOv8, MediaPipe) to monitor factory activities in real-time, detect hazards (humans, no-helmet, falls), and automatically stop machines to prevent accidents. It features a Streamlit dashboard for live monitoring, alerts, and logs.
+### 🧭 Overview
+Real-time safety monitoring using computer vision (Ultralytics YOLO) to detect people and helmet compliance and to automatically stop/start a simulated machine. Includes a Streamlit dashboard for live monitoring and event logs.
 
-## Features
-- Real-time object/human/helmet detection (YOLOv8)
-- Fall/posture detection (MediaPipe, optional)
-- Machine stop/start simulation
-- Event logging with timestamps
-- Streamlit dashboard: live video, alerts, logs, machine status
+### ✨ Key Features
+- ⚡ **Real-time detection**: person, helmet/no-helmet tags (if supported by the model)
+- 🧰 **Machine control**: simulated start/stop via GPIO abstraction
+- 📝 **Event logging**: CSV with timestamps and details
+- 📊 **Dashboard**: live feed with overlays, machine status, and event history
 
-## **What is this project?**
-
-This is a **smart safety system** that uses your computer's camera to watch for dangerous situations and automatically stop machines to prevent accidents. Think of it like a very smart security guard that never sleeps!
-
----
-
-## **   Main Purpose**
-
-**The system does 3 important things:**
-1. **👁️ Watches** - Uses your camera to see what's happening
-2. **   Thinks** - Uses AI to detect people and dangerous situations  
-3. **🛡️ Protects** - Automatically stops machines when it sees danger
-
----
-
-## **   How it Works (Step by Step)**
-
-### **Step 1: Camera Setup**
-- Your computer's camera turns on
-- It starts recording what it sees
-- The video is saved to a file
-
-### **Step 2: AI Detection**
-- **YOLOv8** (the AI brain) analyzes each frame of video
-- It looks for:
-  - 👤 **People** (potential hazard)
-  - 🪖 **No helmets** (safety violation)
-  - 🏃 **Falls** (accident detection)
-
-### **Step 3: Safety Logic**
-- **If AI sees a person** → Machine stops automatically
-- **If AI sees no danger** → Machine runs normally
-- **All events are logged** with timestamps
-
-### **Step 4: Web Dashboard**
-- You can watch everything on your web browser
-- See the recorded video with AI detection boxes
-- Check machine status (running/stopped)
-- View all safety events and logs
-
----
-
-## **📁 Project Structure**
-
-```
-INTEL 2.0/
-├── 📹 main.py                    # Main program (camera + AI)
-├── 🌐 dashboard/                 # Web interface
-│   ├── streamlit_app.py         # Main dashboard
-│   └── camera_stream.py         # Live camera component
-├── 🤖 detectors/                 # AI detection
-│   └── yolo_detector.py         # YOLOv8 AI model
-├── ⚙️ utils/                     # Helper tools
-│   ├── gpio_simulator.py        # Machine control simulation
-│   └── event_logger.py          # Event logging
-├── 📊 data/                      # Saved data
-│   ├── output_annotated.mp4     # Recorded video
-│   └── event_log.csv            # Safety event logs
-└── 🧠 models/                    # AI models
-    └── yolov8n.pt               # YOLOv8 neural network
+### 📦 Requirements
+- Python 3.9–3.11
+- Windows/macOS/Linux (Webcam required for live features)
+- Install dependencies:
+```bash
+pip install -r requirements.txt
 ```
 
----
+### 📁 Project Structure
+```
+INTEL-AI-PROJECT/
+├─ main.py                      # Real-time detection + annotated recording
+├─ dashboard/
+│  ├─ streamlit_app.py         # Streamlit UI (tabs: live, status, logs)
+│  └─ camera_stream.py         # Live camera + helmet logic + overlays
+├─ detectors/
+│  └─ yolo_detector.py         # Ultralytics YOLO wrapper
+├─ utils/
+│  ├─ gpio_simulator.py        # Simulated relay (machine start/stop)
+│  └─ event_logger.py          # CSV logger
+├─ data/
+│  ├─ output_annotated.mp4     # Saved annotated video (from main.py)
+│  └─ event_log.csv            # Event log
+├─ models/
+│  ├─ helmet-best.pt           # Example helmet-capable model (optional)
+│  ├─ hardhat-best.pt          # Example hardhat-capable model (optional)
+│  └─ yolov8n.pt               # Default model fallback
+├─ runs/detect/.../weights/    # Optional: training outputs (best.pt)
+├─ test_camera.py              # Simple webcam sanity check
+└─ README.md
+```
 
-## **🚀 How to Use**
-
-### **1. Start the Safety System**
+### 🚀 Quick Start
+- 🎥 **Run with annotated recording (OpenCV window):**
 ```bash
 python main.py
 ```
-- Camera turns on
-- AI starts watching
-- Video recording begins
-- Press 'q' to stop
+  - Press `q` to quit. Output saved to `data/output_annotated.mp4`. Events in `data/event_log.csv`.
 
-### **2. View the Dashboard**
+- 🌐 **Run the Streamlit dashboard (recommended):**
 ```bash
 streamlit run dashboard/streamlit_app.py
 ```
-- Open browser: **http://localhost:8501**
-- See recorded video with AI detection
-- Check machine status
-- View safety logs
+  - 🔗 Open `http://localhost:8501`.
+  - 🧭 Tabs: Camera Feed (recorded video or live), System Status, Event Log.
 
----
+### 🧠 Model Selection Logic
+Both `main.py` and the dashboard auto-pick the most suitable model:
+- 🎯 Prefer `models/*helmet*.pt` or `models/*hardhat*.pt`
+- 🕒 Otherwise, prefer latest `runs/detect/**/weights/best.pt`
+- ↩️ Fallback to `models/yolov8n.pt`
 
-## **🎬 What You'll See**
+💡 If your chosen model lacks an explicit helmet class, live view will show a notice and only person detection will be used.
 
-### **In the Video:**
-- **Green boxes** around detected objects
-- **Red boxes** around people (hazards)
-- **Text overlays** showing what AI detected
-- **Machine status** (RUNNING/STOPPED)
+### 🔍 How Detection and Safety Logic Work
+- 🧩 Detector: `detectors/ yolo_detector.py` wraps Ultralytics YOLO, returning `class_id`, `class_name`, `conf`, `bbox`.
 
-### **In the Dashboard:**
-- **   Camera Feed Tab**: Watch recorded videos
-- **⚙️ System Status Tab**: Check machine status
-- **📋 Event Log Tab**: See all safety events
+- 📼 In `main.py` (record + window):
+  - 🎚️ Confidence: `conf=0.15`
+  - ⏱️ Debounce: `HAZARD_ON_FRAMES=6`, `HAZARD_OFF_FRAMES=8`
+  - 🚨 Hazard if: explicit no-helmet tag is present, or person(s) detected without any helmet in frame.
+  - 🖥️ Machine state overlay: “ALERT: MACHINE STOPPED!” or “Machine Status: RUNNING”.
 
----
+- 🎦 In `dashboard/camera_stream.py` (live stream):
+  - 🎚️ Confidence: `conf=0.2`
+  - ⏱️ Debounce: `HAZARD_ON_FRAMES=1`, `HAZARD_OFF_FRAMES=3` (faster response)
+  - 🧠 Associates helmets with a person’s head region (top 60% of the person box) using center-in-head or small IoU.
+  - 🚨 Hazard if: explicit no-helmet tag, or a person without an associated helmet, or fallback when neither persons nor helmets are visible.
 
-## **🔍 Key Features**
+### ⚙️ Machine Control Abstraction
+- 🔌 `utils/gpio_simulator.GPIOSimulator`
+  - ▶️ `.start_machine()` sets relay pin to ON, ⏹️ `.stop_machine()` sets to OFF
+  - 🔁 Replace with real GPIO (e.g., RPi.GPIO) by implementing the same methods.
 
-### **✅ What Works:**
-- **Real-time person detection**
-- **Automatic machine control**
-- **Video recording with AI overlays**
-- **Event logging and timestamps**
-- **Beautiful web dashboard**
-- **Download videos and logs**
+### 📊 Logs and Outputs
+- 🎞️ Annotated video: `data/output_annotated.mp4` (from `main.py`)
+- 📝 Event log: `data/event_log.csv` with columns `[timestamp, event, details]`
+- 📋 Dashboard “Event Log” tab displays recent and full history and lets you export CSV.
 
-### **🎯 Safety Scenarios:**
-1. **Person enters danger zone** → Machine stops
-2. **Person leaves danger zone** → Machine starts
-3. **No helmet detected** → Machine stops
-4. **All events logged** for safety records
+### 🔧 Configuration
+- 🎚️ Change detection confidence in:
+  - `main.py` → `detector.detect(frame, conf=0.15)`
+  - `dashboard/camera_stream.py` → `conf=0.2`
+- ⏱️ Adjust debounce:
+  - `main.py` → `HAZARD_ON_FRAMES=6`, `HAZARD_OFF_FRAMES=8`
+  - `dashboard/camera_stream.py` → `HAZARD_ON_FRAMES=1`, `HAZARD_OFF_FRAMES=3`
+- 🎥 Camera index: `0` by default (`cv2.VideoCapture(0)`); change if you have multiple cameras.
 
----
-
-## **💡 Real-World Applications**
-
-This system could be used in:
-- **   Factories** - Stop machines when workers are too close
-- **   Construction sites** - Monitor safety equipment
-- **🏥 Hospitals** - Watch for falls or accidents
-- **🏫 Schools** - Monitor playground safety
-- **🏢 Offices** - Track building access
-
----
-
-## **🔧 Technical Details (Simple)**
-
-### **AI Model:**
-- **YOLOv8** - A very fast and accurate object detection AI
-- **Trained on** millions of images to recognize objects
-- **Runs in real-time** on your computer
-
-### **Programming:**
-- **Python** - Main programming language
-- **OpenCV** - Camera and video handling
-- **Streamlit** - Web dashboard interface
-- **Ultralytics** - YOLOv8 AI framework
-
-### **Data Flow:**
+### 🧪 Testing Your Camera
+```bash
+python test_camera.py
 ```
-Camera → AI Detection → Safety Logic → Machine Control → Web Dashboard
-```
+✅ If a window opens and frames update, your webcam works.
 
----
+### 🛠️ Troubleshooting
+- 📷 **Camera cannot open**: Ensure no other app uses the webcam; try camera index `1` or `2`.
+- 🛑 **Live shows running after helmet removal**: Live logic stops on no-helmet tags, on people-without-helmets, and conservatively when neither persons nor helmets are visible. If needed, lower `HAZARD_OFF_FRAMES` or increase `conf`.
+- 🪖 **Model lacks helmet class**: You’ll see a yellow notice. Use `models/helmet-best.pt` or place your trained `best.pt` under `runs/detect/**/weights/`.
+- 🐢 **Performance issues**: Reduce input resolution or use a smaller model (e.g., `yolov8n.pt`). GPU support improves FPS.
+- 💾 **No video saved**: Only `main.py` saves video. The dashboard shows frames but does not record by default.
 
-## **   Summary**
+### 🧩 Extending/Integrating
+- 🔌 Replace `GPIOSimulator` with your hardware driver, preserving `.start_machine()/.stop_machine()` and `.machine_running`.
+- 🧠 Add classes or retrain YOLO. Place weights under `models/` or `runs/detect/**/weights/` for auto-pickup.
 
-This is a **complete safety monitoring system** that:
-- **Watches** your environment with AI
-- **Protects** people by controlling machines
-- **Records** everything for safety records
-- **Shows** you everything through a web interface
+### 📄 License
+For educational/demo use. Add your preferred license file if distributing.
 
-It's like having a **smart, tireless safety supervisor** that never misses anything and always keeps people safe! 🛡️
+### 🙏 Acknowledgements
+- 🤖 Ultralytics YOLO (object detection)
+- 🎥 OpenCV (video I/O and drawing)
+- 🌐 Streamlit (dashboard)

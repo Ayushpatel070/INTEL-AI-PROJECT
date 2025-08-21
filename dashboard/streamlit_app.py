@@ -11,6 +11,10 @@ import time
 from datetime import datetime
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.gpio_simulator import GPIOSimulator
+try:
+    from dashboard.camera_stream import show_live_camera  # when importing as a package
+except Exception:
+    from camera_stream import show_live_camera  # when running inside the dashboard dir
 
 VIDEO_PATH = os.path.join("data", "output_annotated.mp4")
 LOG_PATH = os.path.join("data", "event_log.csv")
@@ -70,8 +74,7 @@ with tab1:
             st.info("💡 Run 'python main.py' to start recording with AI detection.")
     
     else:  # Live Camera Stream
-        st.info("🎥 Live camera streaming feature coming soon!")
-        st.info("💡 For now, use the recorded video option to see AI detection in action.")
+        show_live_camera()
 
 with tab2:
     st.header("⚙️ System Status")
@@ -119,10 +122,11 @@ with tab3:
             st.subheader("Recent Events")
             recent_events = df.tail(10)
             for idx, row in recent_events.iterrows():
+                details = row.get('details', row.get('description', ''))
                 if "Hazard Detected" in str(row['event']):
-                    st.error(f"🚨 {row['event']} - {row.get('description', '')}")
+                    st.error(f"🚨 {row['event']} - {details}")
                 else:
-                    st.success(f"✅ {row['event']} - {row.get('description', '')}")
+                    st.success(f"✅ {row['event']} - {details}")
             
             # Show full log as table
             st.subheader("Full Event History")
@@ -146,5 +150,7 @@ if auto_refresh:
     time.sleep(refresh_interval)
     st.rerun()
 
-if __name__ == "__main__":
-    main() 
+"""
+Note: This file is executed directly by Streamlit using `streamlit run dashboard/streamlit_app.py`.
+Do not call an undefined `main()` here.
+"""
