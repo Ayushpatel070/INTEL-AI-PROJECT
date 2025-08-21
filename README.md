@@ -8,6 +8,7 @@ Real-time safety monitoring using computer vision (Ultralytics YOLO) to detect p
 - 🧰 **Machine control**: simulated start/stop via GPIO abstraction
 - 📝 **Event logging**: CSV with timestamps and details
 - 📊 **Dashboard**: live feed with overlays, machine status, and event history
+- 🎞️ **Recording available**: annotated video saved to `data/output_annotated.mp4` (from `main.py`)
 
 ### 📦 Requirements
 - Python 3.9–3.11
