@@ -4,10 +4,11 @@
 Real-time safety monitoring using computer vision (Ultralytics YOLO) to detect people and helmet compliance and to automatically stop/start a simulated machine. Includes a Streamlit dashboard for live monitoring and event logs.
 
 ### ✨ Key Features
-- ⚡ **Real-time detection**: person, helmet/no-helmet tags (if supported by the model)
+- ⚡ **Real-time detection**: person, helmet/no-helmet tags
 - 🧰 **Machine control**: simulated start/stop via GPIO abstraction
 - 📝 **Event logging**: CSV with timestamps and details
 - 📊 **Dashboard**: live feed with overlays, machine status, and event history
+- 🎞️ **Recording available**: annotated video saved to `data/output_annotated.mp4` (from `main.py`)
 
 ### 📦 Requirements
 - Python 3.9–3.11
